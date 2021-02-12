@@ -30,7 +30,7 @@ const createUser = (req, res, next) => {
     .then((hash) => User.create({
       email, password: hash, name,
     })
-      .then((user) => res.send({ data: user.toJSON() }))
+      .then((user) => res.send({ email: user.email, name: user.name }))
       .catch((err) => {
         if (err.code === 11000) {
           next(new ConflictError('Данный Email занят!'));
@@ -44,7 +44,7 @@ const createUser = (req, res, next) => {
 };
 
 const getUser = (req, res, next) => {
-  const { id } = req.params;
+  const id = req.user._id;
   User.findById(id)
     .orFail(() => new NotFoundError('Пользователь по заданному id не найден'))
     .then((user) => res.send({ data: user }))
