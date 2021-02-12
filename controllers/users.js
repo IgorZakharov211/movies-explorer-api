@@ -59,7 +59,7 @@ const getUser = (req, res, next) => {
 
 const updateProfile = (req, res, next) => {
   const { email, name } = req.body;
-  const { id } = req.params;
+  const id = req.user._id;
   User.findByIdAndUpdate(id, { email, name },
     { new: true })
     .orFail(() => NotFoundError('Пользователь по заданному id не найден'))

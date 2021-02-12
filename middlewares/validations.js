@@ -37,7 +37,7 @@ const validateAuth = celebrate({
 });
 
 const validateObjectId = celebrate({
-  params: Joi.object().keys({
+  body: Joi.object().keys({
     id: Joi.string().required().custom((value, helpers) => {
       if (ObjectId.isValid(value)) {
         return value;
