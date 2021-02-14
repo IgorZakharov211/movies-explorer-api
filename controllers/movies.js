@@ -53,7 +53,9 @@ const deleteMovie = (req, res, next) => {
   Movie.findById(_id)
     .orFail(() => new NotFoundError('Фильм по заданному id не найден'))
     .then((result) => {
-      if (req.user._id === result.owner) {
+      const userId = String(req.user._id);
+      const ownerId = String(result.owner);
+      if (userId === ownerId) {
         Movie.findByIdAndRemove(_id)
           .then((movie) => res.send(movie))
           .catch(next);
