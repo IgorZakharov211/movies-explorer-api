@@ -7,6 +7,11 @@ const AuthError = require('../errors/auth-error');
 const ConflictError = require('../errors/conflict-error');
 const ValidationError = require('../errors/validation-error');
 const NotFoundError = require('../errors/not-found-error');
+const {
+  conflictEmail,
+  notFoundUser,
+  invalidId,
+} = require('../constants');
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
@@ -33,7 +38,7 @@ const createUser = (req, res, next) => {
       .then((user) => res.send({ email: user.email, name: user.name }))
       .catch((err) => {
         if (err.code === 11000) {
-          next(new ConflictError('Данный Email занят!'));
+          next(new ConflictError(conflictEmail));
         }
         if (err.name === 'ValidationError') {
           next(new ValidationError(`${Object.values(err.errors).map((error) => error.message).join(', ')}`));
@@ -46,11 +51,11 @@ const createUser = (req, res, next) => {
 const getUser = (req, res, next) => {
   const id = req.user._id;
   User.findById(id)
-    .orFail(() => new NotFoundError('Пользователь по заданному id не найден'))
+    .orFail(() => new NotFoundError(notFoundUser))
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.kind === 'ObjectId') {
-        next(new ValidationError('Невалидний id'));
+        next(new ValidationError(invalidId));
       } else {
         next(err);
       }
@@ -62,17 +67,17 @@ const updateProfile = (req, res, next) => {
   const id = req.user._id;
   User.findByIdAndUpdate(id, { email, name },
     { new: true })
-    .orFail(() => NotFoundError('Пользователь по заданному id не найден'))
+    .orFail(() => NotFoundError(notFoundUser))
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.kind === 'ObjectId') {
-        next(new ValidationError('Невалидний id'));
+        next(new ValidationError(invalidId));
       }
       if (err.name === 'ValidationError') {
         next(new ValidationError(`${Object.values(err.errors).map((error) => error.message).join(', ')}`));
       }
       if (err.code === 11000) {
-        next(new ConflictError('Такой Email уже используется'));
+        next(new ConflictError(conflictEmail));
       } else {
         next(err);
       }
