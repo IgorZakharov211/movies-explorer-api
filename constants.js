@@ -8,6 +8,7 @@ const invalidId = 'Невалидний id';
 const authRequired = 'Необходима авторизация';
 
 const serverError = 'На сервере произошла ошибка';
+const notFoundError = 'Запрашиваемый ресурс не найден';
 
 const incorrEmailOrPassword = 'Неправильные почта или пароль';
 
@@ -67,6 +68,7 @@ module.exports = {
   invalidId,
   authRequired,
   serverError,
+  notFoundError,
   incorrEmailOrPassword,
   invalidEmail,
   requiredEmail,

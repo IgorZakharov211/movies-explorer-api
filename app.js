@@ -7,6 +7,7 @@ const routes = require('./routes');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require('./middlewares/error-handler');
 const NotFoundError = require('./errors/not-found-error');
+const { notFoundError } = require('./constants');
 
 const { PORT = 3000 } = process.env;
 const { MONGO_URL } = require('./config');
@@ -24,7 +25,7 @@ app.use(requestLogger);
 app.use(routes);
 app.use(errorLogger);
 app.use(() => {
-  throw new NotFoundError('Запрашиваемый ресурс не найден');
+  throw new NotFoundError(notFoundError);
 });
 app.use(errors());
 app.use(errorHandler);
