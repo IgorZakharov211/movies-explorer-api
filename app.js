@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 const { errors } = require('celebrate');
 const routes = require('./routes');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -22,6 +23,7 @@ mongoose.connect(MONGO_URL, {
 app.use(bodyParser.json());
 app.use(cors());
 app.use(requestLogger);
+app.use(helmet());
 app.use(routes);
 app.use(errorLogger);
 app.use(() => {

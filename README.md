@@ -17,7 +17,6 @@
 * POST /signin — войти.
 
 
-
 **В ходе разработки были использованы:**
 
 * [**Node.js**](https://nodejs.org/);
@@ -28,7 +27,7 @@
 
 ## Ссылка на проект: 
 
-*https://api.movies-explorer.zakharov.students.nomoredomains.rocks*
+*https://api.movies-explorer.zakharov.students.nomoredomains.rocks/*
 
 ## Публичный ip:
 *130.193.36.73*
