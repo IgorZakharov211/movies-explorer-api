@@ -31,7 +31,6 @@ const {
   invalidThumbnail,
   requiredThumbnail,
   emptyThumbnail,
-  invalidMovieId,
   requiredMovieId,
   emptyMovieId,
   requiredNameRU,
@@ -163,12 +162,7 @@ const validateMovieBody = celebrate({
         'any.required': requiredThumbnail,
         'string.empty': emptyThumbnail,
       }),
-    movieId: Joi.string().required().custom((value, helpers) => {
-      if (ObjectId.isValid(value)) {
-        return value;
-      }
-      return helpers.message(invalidMovieId);
-    })
+    movieId: Joi.string().required()
       .messages({
         'any.required': requiredMovieId,
         'string.empty': emptyMovieId,
