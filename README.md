@@ -27,7 +27,4 @@
 
 ## Ссылка на проект: 
 
-*https://api.movies-explorer.zakharov.students.nomoredomains.rocks/*
-
-## Публичный ip:
-*130.193.36.73*
+*https://api.zakharovigor.ru/*
